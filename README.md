@@ -15,7 +15,7 @@ yarn install
 
 4. Change environment variables
 
-5. Lift the database
+5. Run postgres database
 ```
 docker compose up -d
 ```
