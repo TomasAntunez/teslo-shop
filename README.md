@@ -20,7 +20,12 @@ yarn install
 docker compose up -d
 ```
 
-6. Run application in development
+6. Run SEED
+```
+http://localhost:3000/api/seed
+```
+
+7. Run application in development
 ```
 yarn start:dev
 ```

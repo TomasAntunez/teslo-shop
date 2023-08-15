@@ -24,7 +24,7 @@ export class ProductsController {
 
   @Get(':termSearch')
   findOne(@Param('termSearch') termSearch: string) {
-    return this.productsService.findOne(termSearch);
+    return this.productsService.findOnePlain(termSearch);
   }
 
   @Patch(':id')

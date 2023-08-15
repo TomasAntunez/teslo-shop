@@ -1,6 +1,10 @@
-import { BeforeInsert, BeforeUpdate, Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BeforeInsert, BeforeUpdate, Column, Entity, Index, OneToMany, PrimaryGeneratedColumn
+} from "typeorm";
+import { ProductImage } from "./product-image.entity";
 
-@Entity()
+
+@Entity({ name: 'products' })
 export class Product {
 
   @PrimaryGeneratedColumn('uuid')
@@ -45,7 +49,12 @@ export class Product {
   })
   tags: string[];
 
-  // images
+  @OneToMany(
+    () => ProductImage,
+    productImage => productImage.product,
+    { cascade: true, eager: true }
+  )
+  images?: ProductImage[]
 
   @BeforeInsert()
   createSlug() {
@@ -53,13 +62,13 @@ export class Product {
       this.slug = this.title;
     }
 
-    this.sanitizeSlug();
+    this.formatSlug();
   }
 
   @BeforeUpdate()
-  sanitizeSlug() {
+  formatSlug() {
     this.slug = this.slug.toLowerCase()
-    .replaceAll(' ', '_')
-    .replaceAll("'", '_');
+    .replaceAll(" ", "_")
+    .replaceAll("'", "");
   }
 }
