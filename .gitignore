@@ -3,6 +3,8 @@
 /node_modules
 
 postgres/
+static/products-images/*
+!static/products-images/.gitkeep
 
 .env
 
