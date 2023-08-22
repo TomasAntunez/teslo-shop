@@ -6,6 +6,8 @@ import { DataSource, Repository } from 'typeorm';
 import { validate as isUUID } from 'uuid';
 
 import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { User } from 'src/users/entities/user.entity';
+
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { Product, ProductImage } from './entities';
@@ -27,13 +29,14 @@ export class ProductsService {
   ) {}
 
 
-  async create(createProductDto: CreateProductDto) {
+  async create(createProductDto: CreateProductDto, user: User) {
     try {
       const { images = [], ...productRest } = createProductDto;
 
       const product = this.productRepository.create({
         ...productRest,
-        images: images.map( imageUrl => this.productImageRepository.create({ url: imageUrl }) )
+        images: images.map( imageUrl => this.productImageRepository.create({ url: imageUrl }) ),
+        user
       });
       
       await this.productRepository.save(product);
@@ -72,7 +75,7 @@ export class ProductsService {
   }
 
 
-  async update(id: string, updateProductDto: UpdateProductDto) {
+  async update(id: string, updateProductDto: UpdateProductDto, user: User) {
 
     const { images, ...productRest } = updateProductDto;
 
@@ -94,6 +97,8 @@ export class ProductsService {
         ));
       }
 
+      product.user = user;
+      
       await queryRunner.manager.save( product );
 
       await queryRunner.commitTransaction();
@@ -113,19 +118,6 @@ export class ProductsService {
   async remove(id: string) {
     const { affected } = await this.productRepository.delete({ id });
     if ( affected === 0 ) throw new NotFoundException(`Product with id '${id}' not found`);
-  }
-
-
-  async deleteAllProducts() {
-    try {
-      return await this.productRepository.createQueryBuilder('prod')
-        .delete()
-        .where({})
-        .execute();
-      
-    } catch (error) {
-      this.handleDBExceptions(error);
-    }
   }
 
 

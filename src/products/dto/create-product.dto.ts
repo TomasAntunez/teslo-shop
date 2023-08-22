@@ -1,7 +1,6 @@
 import { Transform } from "class-transformer";
 import {
-  ArrayNotEmpty,
-  IsArray, IsIn, IsInt, IsNumber, IsOptional, IsPositive, IsString, Length, MinLength
+  IsArray, IsIn, IsInt, IsNumber, IsOptional, IsPositive, IsString, MinLength
 } from "class-validator";
 
 
