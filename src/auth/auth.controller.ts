@@ -2,6 +2,7 @@ import {
   Controller, Post, Body, HttpCode, HttpStatus, Get, UseGuards, Req
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 
 import { RawHeaders } from 'src/common/decorators/raw-headers.decorator';
 import { User } from 'src/users/entities/user.entity';
@@ -13,6 +14,7 @@ import { UserRoleGuard } from './guards/user-role.guard';
 import { ValidRoles } from './interfaces/valid-roles.enum';
 
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
 

@@ -4,11 +4,13 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
+import { ApiTags } from '@nestjs/swagger';
 
 import { FilesService } from './files.service';
 import { fileFilter, fileNamer } from './helpers';
 
 
+@ApiTags('Files')
 @Controller('files')
 export class FilesController {
 
