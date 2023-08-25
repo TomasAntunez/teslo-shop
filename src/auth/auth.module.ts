@@ -44,6 +44,6 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     //   }
     // })
   ],
-  exports: [PassportModule, BcryptAdapter]
+  exports: [PassportModule, BcryptAdapter, JwtModule]
 })
 export class AuthModule {}

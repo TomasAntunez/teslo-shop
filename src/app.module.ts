@@ -10,6 +10,7 @@ import { SeedModule } from './seed/seed.module';
 import { FilesModule } from './files/files.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { MessagesModule } from './messages/messages.module';
 
 
 @Module({
@@ -41,7 +42,9 @@ import { UsersModule } from './users/users.module';
 
     AuthModule,
 
-    UsersModule
+    UsersModule,
+
+    MessagesModule
   ],
 })
 export class AppModule {}
